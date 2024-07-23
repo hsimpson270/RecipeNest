@@ -1,4 +1,6 @@
-# Table of Contents
+# RecipeNest
+
+## Table of Contents
 - [Information](#information)
 - [How to Run](#how-to-run)
 - [Highlights](#highlights)
