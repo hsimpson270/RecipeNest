@@ -5,12 +5,14 @@ body {
     color: v.$primary;
 }
 
+// Add button hover/focus state handling 
 button {
+    height: 2rem;
     background-color: v.$button-background;
-    color: v.$white;
     border: none;
-    padding: 10px 20px;
-    cursor: pointer;
+    border-radius: 4px;
+    color: v.$white;
+    padding: 0 1.25rem;
 }
 
 .card {
@@ -19,15 +21,21 @@ button {
     display: flex;
     flex-direction: column;
     align-items: center;
-    row-gap: 12px;
+    row-gap: 0.75rem;
     background-color: v.$white;
     border: solid 1px v.$border-color;
     border-radius: 4px;
     color: v.$primary;
-    padding: 20px;
+    padding: 1.25rem;
 
     &:focus,
     &:hover {
         background-color: v.$hover-color;
+    }
+}
+
+@media screen and (max-width: 50rem){ 
+    html {
+        font-size: 0.75rem;
     }
 }
