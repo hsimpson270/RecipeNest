@@ -15,6 +15,10 @@ button {
     padding: 0 1.25rem;
 }
 
+hr  {
+    border-color: v.$border-color;
+}
+
 .card {
     height: 100%;
     width: 100%;

@@ -17,16 +17,29 @@ const DEBOUNCE_TIME = 200;
   styleUrl: './app.component.scss'
 })
 export class AppComponent {
+  /** List of categories to be displayed to allow user to filter recipes. */
   categories: Category[] = [];
+
+  /** The randomly generated feature recipe to appear at the top of the landing page. */
   featuredRecipe!: Meal;
+
+  /** List of meals to be displayed after some filtering action has occurred (sorting, categories, etc.). */
   meals: Meal[] = [];
+
+  /** Tracks selected category name for display within page. */
   selectedCategory = '';
 
+  /** Subscription listener to clean up any active subscriptions on component destroy to prevent memory leaks. */
   private destroy$: Subject<void> = new Subject<void>();
+
+  /** Search text listener for user search input. Required in order to leverage rxjs debounce to prevent unnecessary api calls. */
   private searchText$ = new Subject<string>();
 
   constructor(private mealService: MealService) {}
 
+  /**
+   * On init life cycle hook.
+   */
   ngOnInit(): void {
     this.mealService.getCategories().pipe(first()).subscribe((categories: Category[]) => {
       this.categories = categories;
@@ -47,16 +60,26 @@ export class AppComponent {
     });
   }
 
+  /**
+   * On destroy life cycle hook.
+   */
   ngOnDestroy() {
     this.destroy$.next();
     this.destroy$.complete();
   }
 
+  /**
+   * Handles cancel button click and resets category and meals.
+   */
   cancel(): void {
     this.selectedCategory = '';
     this.meals = [];
   }
 
+  /**
+   * Gets recipes by a given category on category click.
+   * @param categoryName The category name to be selected and filtered on.
+   */
   getRecipesByCategory(categoryName: string): void {
     this.selectedCategory = categoryName;
     this.mealService.getMealsByCategory(categoryName).pipe(first()).subscribe((meals: Meal[]) => {
@@ -64,6 +87,11 @@ export class AppComponent {
     });
   }
 
+  /**
+   * Searches recipes based on user input.
+   * NOTE: had to type the $event as any instead of KeyboardEvent because KeyboardEvent's .target does not contain .value,
+   * so I chose to type it initially as any vs converting $event.target to any within the function.
+   */
   searchRecipes($event: any): void {
     this.searchText$.next($event.target.value);
   }

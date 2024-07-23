@@ -1,3 +1,4 @@
+// I hate this model, but this is what they returned to me. Why couldn't they just make the ingredients a list?
 export interface Meal {
     dateModified: string;
     idMeal: string;
