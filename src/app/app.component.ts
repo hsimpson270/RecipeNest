@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
+import { MealService } from '../services/meal.service';
+import { first } from 'rxjs';
 
 @Component({
   selector: 'app-root',
@@ -9,5 +11,11 @@ import { RouterOutlet } from '@angular/router';
   styleUrl: './app.component.scss'
 })
 export class AppComponent {
-  title = 'RecipeNest';
+  constructor(private mealService: MealService) { }
+
+  ngOnInit(): void {
+    this.mealService.getRandomMeal().pipe(first()).subscribe((result) => {
+      console.log(result);
+    });
+  }
 }
