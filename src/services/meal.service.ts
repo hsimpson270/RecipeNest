@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { map, Observable } from 'rxjs';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { catchError, map, Observable, throwError } from 'rxjs';
 import { Category } from '../models/category';
 import { Meal } from '../models/meal';
 
@@ -18,7 +18,7 @@ export class MealService {
    * @returns List of category names.
    */
   getCategories(): Observable<Category[]> {
-    return this.http.get(`${this.apiUrl}/categories.php`).pipe(map((result: any) => {
+    return this.http.get(`${this.apiUrl}/categories.php`).pipe(catchError(this.handleError), map((result: any) => {
       return result.categories as Category[];
     }));
   }
@@ -29,8 +29,7 @@ export class MealService {
    * @returns List of meals in supplied category.
    */
   getMealsByCategory(name: string): Observable<Meal[]> {
-    console.log(name);
-    return this.http.get(`${this.apiUrl}/filter.php?c=${name}`).pipe((map((result: any) => {
+    return this.http.get(`${this.apiUrl}/filter.php?c=${name}`).pipe(catchError(this.handleError), (map((result: any) => {
       return result.meals as Meal[];
     })));
   }
@@ -40,7 +39,7 @@ export class MealService {
    * @returns A randomly generated meal.
    */
   getRandomMeal(): Observable<Meal> {
-    return this.http.get(`${this.apiUrl}/random.php`).pipe((map((result: any) => {
+    return this.http.get(`${this.apiUrl}/random.php`).pipe(catchError(this.handleError), (map((result: any) => {
       return result.meals[0] as Meal;
     })));
   }
@@ -51,8 +50,26 @@ export class MealService {
    * @returns List of meals matching supplied name.
    */
   searchMeals(name: string): Observable<Meal[]> {
-    return this.http.get(`${this.apiUrl}/search.php?s=${name}`).pipe((map((result: any) => {
+    return this.http.get(`${this.apiUrl}/search.php?s=${name}`).pipe((catchError(this.handleError), map((result: any) => {
       return result.meals as Meal[];
     })));
+  }
+
+  /**
+   * Handles errors if the api result returns unsuccessfully.
+   * Instead of logging errors in the console, I would want to create error handling dialogs instead,
+   * containing error information and generating a code (guid) that users could use when reporting issues.
+   * This function was taken from: https://v17.angular.io/guide/http-handle-request-errors
+   * @param error The error that occurred.
+   */
+  private handleError(error: HttpErrorResponse): Observable<never> {
+    if (error.status === 0) { // A client-side or network error occurred. Handle it accordingly.
+      console.error('An error occurred:', error.error);
+    } else { // The backend returned an unsuccessful response code. The response body may contain clues as to what went wrong.
+      console.error(`Backend returned code ${error.status}, body was: `, error.error);
+    }
+
+    // Return an observable with a user-facing error message.
+    return throwError(() => new Error('Something bad happened; please try again later.'));
   }
 }
