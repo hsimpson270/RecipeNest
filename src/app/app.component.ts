@@ -4,8 +4,8 @@ import { debounceTime, first, Subject, takeUntil } from 'rxjs';
 import { Category } from '../models/category';
 import { Meal } from '../models/meal';
 import { MealService } from '../services/meal.service';
-import { CategoryComponent } from './category/category.component';
-import { MealComponent } from './meal/meal.component';
+import { CategoryComponent } from '../components/category/category.component';
+import { MealComponent } from '../components/meal/meal.component';
 
 const DEBOUNCE_TIME = 200;
 

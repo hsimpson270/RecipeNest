@@ -19,12 +19,14 @@ export class MealService {
    */
   getCategories(): Observable<Category[]> {
     return this.http.get(`${this.apiUrl}/categories.php`).pipe(catchError(this.handleError), map((result: any) => {
-      return result.categories as Category[];
+      return (result.categories as Category[]).sort((a, b) => a.strCategory.localeCompare(b.strCategory));
     }));
   }
 
   /**
    * Gets all meals by a given category.
+   * NOTE: This particular call returns a shorter version of Meal with only 3 properties instead of
+   * the whole object.
    * @param name The name of the category.
    * @returns List of meals in supplied category.
    */

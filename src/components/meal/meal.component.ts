@@ -16,9 +16,11 @@ export class MealComponent {
 
   /**
    * Opens meal info on card button click.
+   * NOTE: If the meal is supplied after selecting a category it will not have instructions.
+   * An additional service call to get meal details would be required to populate the full value.
    */
   openMealInfo(): void {
-    // Create dialog to display meal instructions and ingredients
+    // Create page to display meal instructions and ingredients
     window.alert(this.meal.strInstructions);
   }
 }
