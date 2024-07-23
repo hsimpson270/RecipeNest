@@ -1,0 +1,33 @@
+@use "./variables" as v;
+
+body {
+    background-color: #F5F5DC;
+    color: #006400;
+}
+
+button {
+    background-color: #FFA500;
+    color: #FFFFFF;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+}
+
+.card {
+    height: 100%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    row-gap: 12px;
+    background-color: v.$white;
+    border: solid 1px v.$border-color;
+    border-radius: 4px;
+    color: #006400;
+    padding: 20px;
+
+    &:focus,
+    &:hover {
+        background-color: #D2B48C;
+    }
+}

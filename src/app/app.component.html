@@ -1,3 +1,41 @@
-Test
+<header>
+    <!-- Design a real logo here instead, one with a nest containing a whisk and spoon crossing within and RecipeNest written next to it -->
+    <h1 class="logo">RecipeNest</h1>
 
-<router-outlet />
+    <!-- Design a search component with a font awesome icon inside the search area and an x button to clear text -->
+    <input class="search" type="text" placeholder="Search recipes..." (keyup)="searchRecipes($event)" />
+</header>
+
+<div class="recipe-nest">
+    @if (meals.length) {
+        <div class="recipe-nest--title-row">
+            <h2>{{selectedCategory}} Recipes</h2>
+            @if (selectedCategory) {
+                <button type="button" (click)="cancel()">Cancel</button>
+            }
+        </div>
+        <div class="recipe-nest--items">
+            @for (meal of meals; track meal.idMeal) {
+                <meal [meal]="meal"></meal>
+            }
+        </div>
+    } @else {
+        @if (featuredRecipe) {
+            <!-- Add a yellow font-awesome start icon ahead of this header -->
+            <h2>Featured Recipe</h2>
+            <meal [meal]="featuredRecipe"></meal>
+            <hr />
+        }
+
+        @if (categories.length) {
+            <h2>Categories</h2>
+            <div class="recipe-nest--items">
+                @for (category of categories; track category.idCategory) {
+                    <category [category]="category" (onClick)="getRecipesByCategory($event)"></category>
+                }
+            </div>
+        }
+
+        <!-- Similar sections for Areas and Ingredients as Categories -->
+    }
+</div>

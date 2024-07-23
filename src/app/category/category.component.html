@@ -1,0 +1,6 @@
+<button class="card" type="button" (click)="selectCategory()">
+    <img [src]="category.strCategoryThumb" alt="Picture of {{category.strCategory}}" height="200" />
+    <h3>{{category.strCategory}}</h3>
+    <!-- Add some kind of read more option to descriptions as they are too long in standard form. -->
+    <p>{{category.strCategoryDescription}}</p>
+</button>

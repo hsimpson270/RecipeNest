@@ -31,7 +31,9 @@
                 "input": "public"
               }
             ],
-            "styles": [],
+            "styles": [
+              "src/styles/styles.scss"
+            ],
             "scripts": []
           },
           "configurations": {
@@ -88,7 +90,9 @@
                 "input": "public"
               }
             ],
-            "styles": [],
+            "styles": [
+              "src/styles/styles.scss"
+            ],
             "scripts": []
           }
         }

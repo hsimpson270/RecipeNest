@@ -1,0 +1,40 @@
+@use "../styles/variables" as v;
+
+:host {
+    header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        background-color: #8B4513;
+        border-bottom: solid 4px #006400;
+        color: v.$white;
+        padding: 12px;
+
+        .logo {
+            margin-bottom: 0;
+        }
+
+        .search {
+            height: 2rem;
+            border: solid 1px v.$border-color;
+            border-radius: 4px;
+            padding: 0 8px;
+        }
+    }
+
+    .recipe-nest {
+        padding: 20px;
+
+        &--items {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+        }
+
+        &--title-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+    }
+}

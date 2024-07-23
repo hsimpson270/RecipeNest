@@ -24,13 +24,14 @@ export class MealService {
   }
 
   /**
-   * Gets the details of a given meal denoted by its id.
-   * @param id The id of the meal to retrieve details for.
-   * @returns Singular meal matching supplied id.
+   * Gets all meals by a given category.
+   * @param name The name of the category.
+   * @returns List of meals in supplied category.
    */
-  getMeal(id: string): Observable<Meal> {
-    return this.http.get(`${this.apiUrl}/lookup.php?i=${id}`).pipe((map((result: any) => {
-      return result.meals[0] as Meal;
+  getMealsByCategory(name: string): Observable<Meal[]> {
+    console.log(name);
+    return this.http.get(`${this.apiUrl}/filter.php?c=${name}`).pipe((map((result: any) => {
+      return result.meals as Meal[];
     })));
   }
 
